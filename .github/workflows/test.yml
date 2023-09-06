@@ -6,7 +6,7 @@ name: Build and deploy container app to Azure Web App - TestWebAppshell
 on:
   push:
     branches:
-      - main
+      - maintest
   workflow_dispatch:
 
 jobs:
