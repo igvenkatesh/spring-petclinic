@@ -58,4 +58,4 @@ jobs:
         app-name: 'vTestWebApp'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_a144b52c1a04498fa8f4b6bc21dbc56b }}
-        images: 'index.docker.io/${{ secrets.DOCKERHUB_USERNAME }}/shell-java-app:0.0.1.Release'
+        images: 'index.docker.io/venkatesh01docker/shell-java-app:0.0.1.Release'
