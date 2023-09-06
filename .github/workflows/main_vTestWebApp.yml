@@ -12,9 +12,20 @@ on:
 jobs:
   build:
     runs-on: 'ubuntu-latest'
+    strategy:
+      matrix:
+        java: [ '17' ]
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2      
+    - name: Set up JDK ${{matrix.java}}
+      uses: actions/setup-java@v2
+      with:
+          java-version: ${{matrix.java}}
+          distribution: 'adopt'
+          cache: maven
+    - name: Build with Maven Wrapper
+      run: ./mvnw -B package
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
@@ -23,8 +34,8 @@ jobs:
       uses: docker/login-action@v2
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_52a55fcd5dde46f5940a9171c0ceb789 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_e1f23df389724106861b616e46dae8ce }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v3
@@ -48,4 +59,4 @@ jobs:
         app-name: 'vTestWebApp'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_a144b52c1a04498fa8f4b6bc21dbc56b }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_52a55fcd5dde46f5940a9171c0ceb789 }}/venkatesh01docker/clockbox:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.DOCKERHUB_USERNAME }}/venkatesh01docker/clockbox:${{ github.sha }}'
