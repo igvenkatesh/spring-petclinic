@@ -49,4 +49,4 @@ jobs:
         app-name: 'TestWebAppshell'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_f18f7a5cff074ad08aed5068f7df50ba }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_232aa02476054d84a53c092a97b6a5a1 }}/venkatesh01docker/clockbox:${{ github.sha }}'
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_232aa02476054d84a53c092a97b6a5a1 }}/venkatesh01docker/clockbox:latest'
